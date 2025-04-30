@@ -1,5 +1,61 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../store/AuthContext";
+import { useContext } from "react";
 function Signup() {
+  const navigate = useNavigate();
+  const { setIsLogged } = useContext(AuthContext);
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const { username, email, password } = userData;
+
+  function handleOnChange(event) {
+    const { name, value } = event.currentTarget;
+    setUserData((preVal) => {
+      return { ...preVal, [name]: value };
+    });
+  }
+  const handleSuccess = (msg) => {
+    toast.success(msg, {
+      position: "top-right",
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3002/signup",
+        {
+          ...userData,
+        },
+        { withCredentials: true }
+      );
+
+      const { success, message } = data;
+      if (success) {
+        setIsLogged(true);
+        handleSuccess(message);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setUserData({
+      ...userData,
+      email: "",
+      password: "",
+      username: "",
+    });
+  };
+
   return (
     <>
       <div className="container   mt-5 p-5 ">
@@ -16,27 +72,56 @@ function Signup() {
             <p className="text-muted mt-1">
               Or track your existing application
             </p>
-            <label htmlFor="phoneNo">Mobile number</label>
+            <form action="/signup" method="POST">
+              <label htmlFor="username">User Name </label>
+              <br />
+              <input
+                type="text"
+                name="username"
+                id="username"
+                value={username}
+                required
+                onChange={handleOnChange}
+                className=" mb-3"
+                style={{ width: "60%" }}
+              />
+              <br />
+              <label htmlFor="email">Email</label>
+              <br />
+              <input
+                type="email"
+                name="email"
+                id="email"
+                required
+                unique
+                value={email}
+                onChange={handleOnChange}
+                className=" mb-3"
+                style={{ width: "60%" }}
+              />
+              <br />
+              <label htmlFor="password">Password</label>
+              <br />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                required
+                onChange={handleOnChange}
+                className=" mb-3"
+                style={{ width: "60%" }}
+              />
+              <br />
+              <button
+                className="p-1  mt-1 btn btn-primary fs-5  text-center"
+                style={{ width: "27%", margin: " 0 auto", borderRadius: "2px" }}
+                onClick={handleSubmit}
+              >
+                Continue
+              </button>
+            </form>
             <br />
-            <input
-              type="text"
-              name="number"
-              id="phoneNo"
-              className=" mb-3"
-              style={{ width: "60%" }}
-            />
-
-            <p className="text-muted">You will receive an OTP on your number</p>
-            <button
-              className="p-1  mt-1 btn btn-primary fs-5  text-center"
-              style={{ width: "27%", margin: " 0 auto", borderRadius: "2px" }}
-            >
-              Continue
-            </button>
-            <br />
-            <a style={{ textDecoration: "none" }} href="#">
-              Want to open an NRI account?
-            </a>
           </div>
         </div>
 

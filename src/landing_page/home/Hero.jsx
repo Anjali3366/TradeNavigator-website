@@ -15,12 +15,13 @@ function Hero() {
             Online platform to invest in stocks, derivatives, mutual funds, and
             more
           </p>
-          <button
+          <a
             className="p-1 btn btn-primary fs-5 mb-5"
             style={{ width: "18%", margin: " 0 auto" }}
+            href="/signup"
           >
-            Sign up now
-          </button>
+            Sign up for free
+          </a>
         </div>
       </div>
     </>

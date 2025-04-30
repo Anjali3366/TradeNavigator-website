@@ -9,7 +9,7 @@ function Team() {
             <img
               className="mt-4"
               style={{ width: "50%", height: "70%", borderRadius: "50%" }}
-              src="media/images/anjali.jpg"
+              src="/media/images/profile.jpg"
               alt=""
             />
 
