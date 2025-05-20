@@ -9,6 +9,6 @@ const holdingSchema = new mongoose.Schema({
   day: String,
 });
 
-const Holding = mongoose.model("Holding", productSchema);
+const Holding = mongoose.model("Holding", holdingSchema);
 
 export default Holding;

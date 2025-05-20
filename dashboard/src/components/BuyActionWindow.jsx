@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
@@ -13,7 +13,7 @@ const BuyActionWindow = ({ uid }) => {
 
   const handleBuyClick = () => {
     try {
-      axios.post("http://localhost:3002/newOrder", {
+      axios.post("http://localhost:5000/newOrder", {
         name: uid,
         qty: stockQuantity,
         price: stockPrice,
