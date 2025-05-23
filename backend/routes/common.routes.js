@@ -8,9 +8,9 @@ import {
 
 const router = express.Router();
 
-router.get("/allholdings", allHoldings);
-router.get("/allpositions", allPositions);
-router.get("/allOrders", allOrders);
+router.get("/holdings", allHoldings);
+router.get("/positions", allPositions);
+router.get("/orders", allOrders);
 router.post("/newOrder", newOrder);
 
 export default router;

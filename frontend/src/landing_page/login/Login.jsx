@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../store/AuthContext.jsx";
 export default function Login() {
   const navigate = useNavigate();
-  const { isLogged, setIsLogged } = useContext(AuthContext);
+
+  const { setIsLogged } = useContext(AuthContext);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -28,7 +29,7 @@ export default function Login() {
     event.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/login",
+        "/auth/login",
         {
           ...loginData,
         },
@@ -45,10 +46,14 @@ export default function Login() {
         }, 1000);
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        console.log("Server error response:", error.response.data);
+        toast.error(error.response.data.message || "Bad request");
+      } else {
+        toast.error("Network error");
+      }
     }
     setLoginData({
-      ...loginData,
       email: "",
       password: "",
     });
@@ -66,7 +71,7 @@ export default function Login() {
           </div>
           <div className="col-lg-6 col-sm-12 mt-5 ml-5">
             <h2>Login</h2>
-            <form action="/login" method="POST" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>
               <br />
               <input

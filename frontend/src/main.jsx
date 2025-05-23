@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <AuthProvider>
         <Navbar />
-        <ToastContainer position="top-right" autoClose={1000} />
+
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
 
@@ -33,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
           <Route path="/support" element={<SupportPage />}></Route>
         </Routes>
+        <ToastContainer position="top-right" autoClose={1000} />
         <Footer />
       </AuthProvider>
     </BrowserRouter>

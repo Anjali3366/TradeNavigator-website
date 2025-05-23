@@ -30,7 +30,7 @@ function Signup() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/signup",
+        "/auth/signup",
         {
           ...userData,
         },
@@ -46,7 +46,12 @@ function Signup() {
         }, 1000);
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        console.log("Server error response:", error.response.data);
+        toast.error(error.response.data.message || "Bad request");
+      } else {
+        toast.error("Network error");
+      }
     }
     setUserData({
       ...userData,
@@ -93,7 +98,6 @@ function Signup() {
                 name="email"
                 id="email"
                 required
-                unique
                 value={email}
                 onChange={handleOnChange}
                 className=" mb-3"
