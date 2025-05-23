@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { positions } from "../data/data";
+import { LineChart } from "./LineChart.jsx";
 
 const Positions = () => {
   const [allPositions, setAllPositions] = useState([]);
@@ -10,6 +10,24 @@ const Positions = () => {
       setAllPositions(res.data);
     });
   }, []);
+  const labels = allPositions.map((product) => product.name);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Qty",
+        data: allPositions.map((product) => product.qty),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+      {
+        label: "Price",
+        data: allPositions.map((product) => product.price),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
   return (
     <>
       <h3 className="title">Positions ({allPositions.length}) </h3>
@@ -51,6 +69,7 @@ const Positions = () => {
           })}
         </table>
       </div>
+      <LineChart data={data} />
     </>
   );
 };

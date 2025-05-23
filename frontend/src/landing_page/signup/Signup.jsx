@@ -48,7 +48,7 @@ function Signup() {
     } catch (error) {
       if (error.response) {
         console.log("Server error response:", error.response.data);
-        toast.error(error.response.data.message || "Bad request");
+        toast.error(error.response.data.error || "Bad request");
       } else {
         toast.error("Network error");
       }

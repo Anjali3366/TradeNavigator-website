@@ -38,7 +38,7 @@ function Navbar() {
                 )}
                 {isLogged && (
                   <li className="nav-item">
-                    <a className="nav-link" href="http://localhost:5174/">
+                    <a className="nav-link" href="http://localhost:5173/">
                       Dashboard
                     </a>
                   </li>

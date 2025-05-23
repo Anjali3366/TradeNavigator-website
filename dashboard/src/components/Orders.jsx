@@ -1,14 +1,29 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { VerticalBarChart } from "./VerticalBarChart";
 const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/orders")
-      .then((res) => setAllOrders(res.data));
+      .get("http://localhost:5000/orders", { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+        setAllOrders(res.data);
+      });
   }, []);
+  const labels = allOrders.map((order) => order["name"]);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Order",
+        data: allOrders.map((order) => order.qty),
+        backgroundColor: "rgba(249, 15, 15, 0.5)",
+      },
+    ],
+  };
   return (
     <div className="orders">
       <h3 className="title">Orders ({allOrders.length}) </h3>
@@ -39,6 +54,7 @@ const Orders = () => {
           })}
         </table>
       </div>
+      <VerticalBarChart data={data} />
     </div>
   );
 };
