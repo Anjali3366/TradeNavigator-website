@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-// import { v2 as cloudinary } from "cloudinary";
+
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
